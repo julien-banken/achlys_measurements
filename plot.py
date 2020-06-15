@@ -2,53 +2,35 @@
 
 import os
 import re
-import datetime
-
 import pandas
 import matplotlib.pyplot as plt
 
+from datetime import datetime
+
 def get_dataframe(src):
-  pattern = r"^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})\.([^\+]+)\+([0-9]{2}):([0-9]{2})\s([^:]+):\s(.*)"
   columns = [
     "time",
-    "delta",
     "level",
     "message"
   ]
-  n = len(columns)
   with open(src, "r") as f:
     rows = []
     for line in f:
-      matches = re.search(pattern, line.strip())
-      if matches is not None:
-        time = datetime.datetime(
-          year=int(matches[1]),
-          month=int(matches[2]),
-          day=int(matches[3]),
-          hour=int(matches[4]),
-          minute=int(matches[5]),
-          second=int(matches[6]),
-          microsecond=int(matches[7])
-        )
-        delta = datetime.timedelta(
-          minutes=int(matches[8]),
-          seconds=int(matches[9])
-        )
-        rows.append([time, delta] + [matches[k] for k in range(10, 10 + n - 2)])
-
+      [date_str, message] = line.split(" ", 1)
+      [level, log] = message.split(" ", 1)
+      rows.append([parse_date(date_str), level[:-1], log])
   return pandas.DataFrame(rows, columns=columns)
+
+def parse_date(date_str):
+  i = date_str.rfind(":")
+  date_str = date_str[:i] + date_str[i+1:]
+  date_format = "%Y-%m-%dT%H:%M:%S.%f%z"
+  return datetime.strptime(date_str, date_format)
 
 def parse_message(row):
   pattern = r"^\[MAPREDUCE\]\[([^\]]+)\]\[([^\]]+)\](?:\[([^\]]+)\])?"
   matches = re.search(pattern, row["message"])
-  if matches is not None:
-    return pandas.Series((
-      matches[1],
-      matches[2],
-      matches[3]
-    ))
-  else:
-    return pandas.Series((None, None, None))
+  return pandas.Series(matches.groups() if matches is not None else [None * 3])
 
 def get_node_name(df):
   pattern = r"^application: kernel, started_at: (.*)"
