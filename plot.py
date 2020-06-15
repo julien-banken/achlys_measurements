@@ -36,10 +36,7 @@ def get_dataframe(src):
         )
         rows.append([time, delta] + [matches[k] for k in range(10, 10 + n - 2)])
 
-  return pandas.DataFrame(
-    rows,
-    columns=columns
-  )
+  return pandas.DataFrame(rows, columns=columns)
 
 def parse_message(row):
   pattern = r"^\[MAPREDUCE\]\[([^\]]+)\]\[([^\]]+)\](?:\[([^\]]+)\])?"
@@ -60,6 +57,30 @@ def get_node_name(df):
     if matches is not None:
       return matches[1]
 
+def open_block(blocks, time):
+  if blocks and len(blocks[-1]) == 1:
+    return
+  blocks.append((time,))
+
+def close_block(blocks, time):
+  if blocks and len(blocks[-1]) == 1:
+    blocks[-1] = blocks[-1] + (time,)
+
+def plot_blocks(ax, index, blocks, offset, color):
+  xrange = []
+  for block in blocks:
+    if len(block) == 1:
+      continue
+    (start, end) = block
+    a = start - offset
+    b = end - offset
+    xrange.append((
+      (a).total_seconds(),
+      (b - a).total_seconds()
+    ))
+  yrange = (((index + 1) * 10) - 3, 6)
+  ax.broken_barh(xrange, yrange, facecolors=color)
+
 def plot(ax, df, myself, names):
   """
   ax - Axis
@@ -69,54 +90,45 @@ def plot(ax, df, myself, names):
   df = df.sort_values(by="time", ascending=True)
   nodes = {}
   for name in names:
-    nodes[name] = []
+    nodes[name] = {
+      "master": [],
+      "observer": []
+    }
 
   for (_id, row) in df[df["type"] != "R"].iterrows():
     if row["type"] == "M":
-      name = row["args"]
-      blocks = nodes[name]
-      if blocks and len(blocks[-1]) == 1:
-        continue
-      blocks.append((row["time"],))
+      time = row["time"]
+      target = row["args"]
+      for (name, blocks) in nodes.items():
+        if name == target:
+          close_block(blocks["observer"], time)
+          open_block(blocks["master"], time)
+        else:
+          open_block(blocks["observer"], time)
     elif row["type"] == "T":
-      name = row["args"]
-      blocks = nodes[name]
-      if blocks and len(blocks[-1]) == 2:
-        continue
-      blocks[-1] = blocks[-1] + (row["time"],)
+      time = row["time"]
+      target = row["args"]
+      blocks = nodes[target]
+      close_block(blocks["master"], time)
+      open_block(blocks["observer"], time)
     elif row["type"] == "F":
+      time = row["time"]
       for blocks in nodes.values():
-        if not blocks:
-          continue
-        if blocks and len(blocks[-1]) == 2:
-          continue
-        blocks[-1] = blocks[-1] + (row["time"],)
+        close_block(blocks["master"], time)
+        close_block(blocks["observer"], time)
 
   offset = df["time"].min()
-
-  for (index, (label, blocks)) in enumerate(nodes.items()):
-    xrange = []
-    for block in blocks:
-      if len(block) == 1:
-        continue
-      (start, end) = block
-      a = start - offset
-      b = end - offset
-      xrange.append((
-        (a).total_seconds(),
-        (b - a).total_seconds()
-      ))
-
-    yrange = (((index + 1) * 10) - 3, 6)
-    ax.broken_barh(xrange, yrange, facecolors="tab:blue")
-
-    # print("blocks", blocks)
-    # print(label, barh)
-    # print()
+  index = 0
+  for blocks in nodes.values():
+    plot_blocks(ax, index, blocks["master"], offset, "tab:blue")
+    plot_blocks(ax, index, blocks["observer"], offset, "tab:orange")
+    index = index + 1
+    print("blocks", blocks)
+    print()
 
   ax.title.set_text("View of node: {0}".format(myself))
   ax.set_xlabel("seconds since start")
-  ax.set_xticks(range(0, 5)) # TODO: Do not hardcode this value
+  ax.set_xticks(range(0, 5))
   ax.set_yticks([10, 20, 30, 40, 50])
   ax.set_yticklabels(names)
   ax.grid(True)
