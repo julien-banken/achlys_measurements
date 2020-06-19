@@ -28,7 +28,7 @@ def parse_date(date_str):
   return datetime.strptime(date_str, date_format)
 
 def parse_message(row):
-  pattern = r"^\[MAPREDUCE\]\[([^\]]+)\]\[([^\]]+)\](?:\[([^\]]+)\])?"
+  pattern = r"^\[MAPREDUCE\]\s*\[([^\]]+)\]\s*\[([^\]]+)\]\s*(?:\[([^\]]+)\])?"
   matches = re.search(pattern, row["message"])
   return pandas.Series(matches.groups() if matches is not None else [None * 3])
 
@@ -70,6 +70,8 @@ def plot(ax, df, myself, names):
   """
 
   df = df.sort_values(by="time", ascending=True)
+  offset = df.iloc[0]["time"]
+
   nodes = {}
   for name in names:
     nodes[name] = {
@@ -99,21 +101,36 @@ def plot(ax, df, myself, names):
         close_block(blocks["master"], time)
         close_block(blocks["observer"], time)
 
-  offset = df["time"].min()
-  index = 0
-  for blocks in nodes.values():
+  for (index, blocks) in enumerate(nodes.values()):
     plot_blocks(ax, index, blocks["master"], offset, "tab:blue")
     plot_blocks(ax, index, blocks["observer"], offset, "tab:orange")
-    index = index + 1
-    print("blocks", blocks)
-    print()
+
+  x_ticks = range(0, 5)
+  y_ticks = [10, 20, 30, 40, 50]
 
   ax.title.set_text("View of node: {0}".format(myself))
   ax.set_xlabel("seconds since start")
-  ax.set_xticks(range(0, 5))
-  ax.set_yticks([10, 20, 30, 40, 50])
+  ax.set_xticks(x_ticks)
+  ax.set_yticks(y_ticks)
   ax.set_yticklabels(names)
   ax.grid(True)
+
+  # Add annotations:
+
+  index = list(nodes.keys()).index(myself)
+  for (_id, row) in df[df["type"] == "R"].iterrows():
+    x = (row["time"] - offset).total_seconds()
+    y = y_ticks[index]
+    ax.annotate(
+      "Round {0}".format(row["args"]),
+      xycoords="data",
+      xy=(x, y),
+      xytext=(x, y + 5),
+      arrowprops=dict(
+        facecolor="black",
+        shrink=0.05
+      )
+    )
 
 def get_log_path(directory):
   for file in os.listdir(directory):
