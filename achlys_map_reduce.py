@@ -1,43 +1,26 @@
 #!/usr/bin/env python3
 
-import os
 import re
 import pandas
 import matplotlib.pyplot as plt
 
-from datetime import datetime
+from helpers import get_logs_per_node
 
-def get_dataframe(src):
-  columns = [
-    "time",
-    "level",
-    "message"
-  ]
-  with open(src, "r") as f:
-    rows = []
-    for line in f:
-      [date_str, message] = line.split(" ", 1)
-      [level, log] = message.split(" ", 1)
-      rows.append([parse_date(date_str), level[:-1], log])
-  return pandas.DataFrame(rows, columns=columns)
-
-def parse_date(date_str):
-  i = date_str.rfind(":")
-  date_str = date_str[:i] + date_str[i+1:]
-  date_format = "%Y-%m-%dT%H:%M:%S.%f%z"
-  return datetime.strptime(date_str, date_format)
-
-def parse_message(row):
+def transform(logs):
   pattern = r"^\[MAPREDUCE\]\s*\[([^\]]+)\]\s*\[([^\]]+)\]\s*(?:\[([^\]]+)\])?"
-  matches = re.search(pattern, row["message"])
-  return pandas.Series(matches.groups() if matches is not None else [None * 3])
+  for log in logs:
+    matches = re.search(pattern, log["message"])
+    if matches:
+      log["id"] = matches[1]
+      log["type"] = matches[2]
+      log["args"] = matches[3]
+      yield log
 
-def get_node_name(df):
-  pattern = r"^application: kernel, started_at: (.*)"
-  for (_id, row) in df[df["level"] == "info"].iterrows():
-    matches = re.search(pattern, row["message"])
-    if matches is not None:
-      return matches[1]
+def get_dataframe_per_node(directory):
+  dfs = {}
+  for (key, logs) in get_logs_per_node(directory).items():
+    dfs[key] = pandas.DataFrame(transform(logs))
+  return dfs
 
 def open_block(blocks, time):
   if blocks and len(blocks[-1]) == 1:
@@ -63,10 +46,10 @@ def plot_blocks(ax, index, blocks, offset, color):
   yrange = (((index + 1) * 10) - 3, 6)
   ax.broken_barh(xrange, yrange, facecolors=color)
 
-def plot(ax, df, myself, names):
+def plot(df, ax, myself, names):
   """
-  ax - Axis
   df - Dataframe
+  ax - Axis
   """
 
   df = df.sort_values(by="time", ascending=True)
@@ -132,44 +115,22 @@ def plot(ax, df, myself, names):
       )
     )
 
-def get_log_path(directory):
-  for file in os.listdir(directory):
-    path = os.path.join(directory, file)
-    if os.path.isfile(path):
-      yield path
-
 if __name__ == "__main__":
 
   directory = "./logs/5_nodes_best"
-  logs = {}
-
-  for path in get_log_path(directory):
-    df = get_dataframe(path)
-    name = get_node_name(df)
-    logs[name] = df
+  dfs = get_dataframe_per_node(directory)
 
   fig = plt.figure(figsize=(9, 3), dpi=80)
   fig.tight_layout()
 
   ncol = 2
-  nrow = 1 + (len(logs) // ncol)
-  dim = (nrow, ncol)
+  nrow = 1 + (len(dfs) // ncol)
+  grid = (nrow, ncol)
 
-  for (index, (name, df)) in enumerate(logs.items()):
-
-    # Filter:
-    pattern = r"\[MAPREDUCE\]"
-    mask = df["message"].str.match(pattern)
-    df = df.loc[mask].copy()
-    
-    # Add specific columns:
-    columns = ["id", "type", "args"]
-    df[columns] = df.apply(parse_message, axis=1)
-    
+  for (index, (name, df)) in enumerate(dfs.items()):
     i = index // ncol
     j = index % ncol
-    ax = plt.subplot2grid(dim, (i, j))
-
-    plot(ax, df, name, list(logs.keys()))
+    ax = plt.subplot2grid(grid, (i, j))
+    plot(df, ax, name, list(dfs.keys()))
 
   plt.show()

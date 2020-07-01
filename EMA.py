@@ -21,6 +21,8 @@ def generate_points():
 def plot_data(ax, data):
   ax.scatter(*data)
   ax.set_title("Sample")
+  ax.set_xlabel("time")
+  ax.set_ylabel("Response time")
 
 def plot_exponential_distribution(ax, param, color):
   xs = range(10)
@@ -56,12 +58,13 @@ def get_ema(data, t, param):
 
   average = 0
   for (weight, y) in terms:
-    average = average + (weight / weight_sum) * y
+    # average = average + (weight / weight_sum) * y
+    average = average + (weight) * y
 
   return average
 
 def plot_ema(ax, data, param, color):
-  xs = np.linspace(10, 1)
+  xs = np.linspace(20, 1, num=200)
   ys = []
   for x in xs:
     ys.append(get_ema(data, x, param))
