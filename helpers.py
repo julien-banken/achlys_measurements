@@ -17,7 +17,7 @@ def get_log_path(directory):
       yield path
 
 def get_node_name(logs):
-  pattern = r"^application: kernel, started_at: (.*)"
+  pattern = r"^application: [^,]+, started_at: (.*)"
   for log in logs:
     if log["level"] == "info":
       matches = re.search(pattern, log["message"])
@@ -40,9 +40,24 @@ def get_logs(path):
         pass
 
 def get_logs_per_node(directory):
-  collection = {}
   for path in get_log_path(directory):
     logs = get_logs(path)
     name = get_node_name(logs)
-    collection[name] = logs
-  return collection
+    yield (name, logs)
+
+def parse_logs(labels, logs):
+  for log in logs:
+    m1 = re.search(r"^\[([^\]]+)\]:(.*)$", log["message"])
+    if not m1:
+      continue
+    (label, columns) = m1.groups()
+    if label not in labels:
+      continue
+    log["label"] = label
+    for parts in columns.split(";"):
+      m2 = re.search(r"^([^=]+)=(.*)$", parts)
+      if not m2:
+        continue
+      (key, value) = m2.groups()
+      log[key.strip()] = value.strip()
+    yield log

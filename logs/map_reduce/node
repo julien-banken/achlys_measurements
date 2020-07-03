@@ -1,0 +1,143 @@
+2020-07-01T12:20:19.176492+02:00 info: supervisor: {local,grisp_board_sup}, started: [{pid,<0.1076.0>},{id,grisp_spi},{mfargs,{grisp_spi,start_link,[grisp_emulation_spi_drv]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+2020-07-01T12:20:19.184650+02:00 info: supervisor: {local,grisp_board_sup}, started: [{pid,<0.1078.0>},{id,grisp_gpio},{mfargs,{grisp_gpio,start_link,[grisp_emulation_gpio_drv]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+2020-07-01T12:20:19.186796+02:00 info: supervisor: {local,grisp_board_sup}, started: [{pid,<0.1079.0>},{id,grisp_i2c},{mfargs,{grisp_i2c,start_link,[grisp_emulation_i2c_drv]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+2020-07-01T12:20:19.187201+02:00 info: supervisor: {local,grisp_sup}, started: [{pid,<0.1075.0>},{id,grisp_board_sup},{mfargs,{grisp_sup,start_link,[grisp_board_sup,[#{id => grisp_spi,start => {grisp_spi,start_link,[grisp_emulation_spi_drv]}},#{id => g...
+2020-07-01T12:20:19.188704+02:00 info: supervisor: {local,grisp_sup}, started: [{pid,<0.1080.0>},{id,grisp_devices_sup},{mfargs,{grisp_devices_sup,start_link,[grisp_devices_sup]}},{restart_type,permanent},{shutdown,infinity},{child_type,supervisor}]
+2020-07-01T12:20:19.189040+02:00 info: supervisor: {local,grisp_internal_sup}, started: [{pid,<0.1082.0>},{id,grisp_gpio_events},{mfargs,{gen_event,start_link,[{local,grisp_gpio_events}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+2020-07-01T12:20:19.190293+02:00 info: supervisor: {local,grisp_internal_sup}, started: [{pid,<0.1083.0>},{id,grisp_gpio_poller},{mfargs,{grisp_gpio_poller,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+2020-07-01T12:20:19.191611+02:00 info: supervisor: {local,grisp_internal_sup}, started: [{pid,<0.1084.0>},{id,grisp_led},{mfargs,{grisp_led,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+2020-07-01T12:20:19.192782+02:00 info: supervisor: {local,grisp_internal_sup}, started: [{pid,<0.1085.0>},{id,grisp_devices},{mfargs,{grisp_devices,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+2020-07-01T12:20:19.194014+02:00 info: supervisor: {local,grisp_internal_sup}, started: [{pid,<0.1086.0>},{id,grisp_onewire},{mfargs,{grisp_onewire,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+2020-07-01T12:20:19.194236+02:00 info: supervisor: {local,grisp_sup}, started: [{pid,<0.1081.0>},{id,grisp_internal_sup},{mfargs,{grisp_sup,start_link,[grisp_internal_sup,[#{id => grisp_gpio_events,start => {gen_event,start_link,[{local,grisp_gpio_even...
+2020-07-01T12:20:19.208000+02:00 info: supervisor: {local,grisp_devices_sup}, started: [{pid,<0.1087.0>},{id,spi1},{mfargs,{pmod_nav,start_link,[spi1,#{}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+2020-07-01T12:20:19.208283+02:00 info: application: grisp, started_at: 'achlys1@192.168.1.6'
+2020-07-01T12:20:19.209758+02:00 notice: Initializing cluster maintainer. ~n
+2020-07-01T12:20:19.210315+02:00 info: supervisor: {local,achlys_sup}, started: [{pid,<0.1093.0>},{id,achlys_squadron_leader},{mfargs,{achlys_squadron_leader,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+2020-07-01T12:20:19.211075+02:00 info: supervisor: {local,achlys_sup}, started: [{pid,<0.1094.0>},{id,achlys_cleaner},{mfargs,{achlys_cleaner,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+2020-07-01T12:20:19.214284+02:00 info: application: types, started_at: 'achlys1@192.168.1.6'
+2020-07-01T12:20:19.215336+02:00 info: application: gen_flow, started_at: 'achlys1@192.168.1.6'
+2020-07-01T12:20:19.224969+02:00 info: application: syntax_tools, started_at: 'achlys1@192.168.1.6'
+2020-07-01T12:20:19.234658+02:00 info: application: compiler, started_at: 'achlys1@192.168.1.6'
+2020-07-01T12:20:19.241506+02:00 info: supervisor: {local,gr_sup}, started: [{pid,<0.1107.0>},{id,gr_counter_sup},{mfargs,{gr_counter_sup,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,supervisor}]
+2020-07-01T12:20:19.243908+02:00 info: supervisor: {local,gr_sup}, started: [{pid,<0.1108.0>},{id,gr_param_sup},{mfargs,{gr_param_sup,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,supervisor}]
+2020-07-01T12:20:19.246178+02:00 info: supervisor: {local,gr_sup}, started: [{pid,<0.1109.0>},{id,gr_manager_sup},{mfargs,{gr_manager_sup,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,supervisor}]
+2020-07-01T12:20:19.246376+02:00 info: application: goldrush, started_at: 'achlys1@192.168.1.6'
+2020-07-01T12:20:19.253127+02:00 info: supervisor: {local,lager_sup}, started: [{pid,<0.1114.0>},{id,lager},{mfargs,{gen_event,start_link,[{local,lager_event}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+2020-07-01T12:20:19.254731+02:00 info: supervisor: {local,lager_sup}, started: [{pid,<0.1115.0>},{id,lager_handler_watcher_sup},{mfargs,{lager_handler_watcher_sup,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,supervisor}]
+2020-07-01T12:20:19.258049+02:00 info: supervisor: {local,lager_sup}, started: [{pid,<0.1116.0>},{id,lager_crash_log},{mfargs,{lager_crash_log,start_link,["log/crash.log",65536,10485760,[{hour,0}],5,lager_rotator_default]}},{restart_type,permanent},{sh...
+2020-07-01T12:20:19.279234+02:00 info: supervisor: {local,logger_sup}, started: [{pid,<0.1127.0>},{id,error_logger},{mfargs,{error_logger,start_link,[]}},{restart_type,transient},{shutdown,2000},{child_type,worker}]
+2020-07-01T12:20:19.284673+02:00 info: supervisor: {local,gr_param_sup}, started: [{pid,<0.1132.0>},{id,gr_lager_default_tracer_params},{mfargs,{gr_param,start_link,[gr_lager_default_tracer_params]}},{restart_type,transient},{shutdown,brutal_kill},{chi...
+2020-07-01T12:20:19.287230+02:00 info: supervisor: {local,gr_counter_sup}, started: [{pid,<0.1133.0>},{id,gr_lager_default_tracer_counters},{mfargs,{gr_counter,start_link,[gr_lager_default_tracer_counters]}},{restart_type,transient},{shutdown,brutal_ki...
+2020-07-01T12:20:19.288488+02:00 info: supervisor: {local,gr_manager_sup}, started: [{pid,<0.1134.0>},{id,gr_lager_default_tracer_params_mgr},{mfargs,{gr_manager,start_link,[gr_lager_default_tracer_params_mgr,gr_lager_default_tracer_params,[]]}},{resta...
+2020-07-01T12:20:19.288658+02:00 info: supervisor: {local,gr_manager_sup}, started: [{pid,<0.1135.0>},{id,gr_lager_default_tracer_counters_mgr},{mfargs,{gr_manager,start_link,[gr_lager_default_tracer_counters_mgr,gr_lager_default_tracer_counters,[{inpu...
+2020-07-01T12:20:19.478104+02:00 info: application: lager, started_at: 'achlys1@192.168.1.6'
+2020-07-01T12:20:19.491404+02:00 info: supervisor: {local,sasl_safe_sup}, started: [{pid,<0.1142.0>},{id,alarm_handler},{mfargs,{alarm_handler,start_link,[]}},{restart_type,permanent},{shutdown,2000},{child_type,worker}]
+2020-07-01T12:20:19.491557+02:00 info: supervisor: {local,sasl_sup}, started: [{pid,<0.1141.0>},{id,sasl_safe_sup},{mfargs,{supervisor,start_link,[{local,sasl_safe_sup},sasl,safe]}},{restart_type,permanent},{shutdown,infinity},{child_type,supervisor}]
+2020-07-01T12:20:19.496324+02:00 info: supervisor: {local,sasl_sup}, started: [{pid,<0.1143.0>},{id,release_handler},{mfargs,{release_handler,start_link,[]}},{restart_type,permanent},{shutdown,2000},{child_type,worker}]
+2020-07-01T12:20:19.496489+02:00 info: application: sasl, started_at: 'achlys1@192.168.1.6'
+2020-07-01T12:20:19.497797+02:00 info: application: time_compat, started_at: 'achlys1@192.168.1.6'
+2020-07-01T12:20:19.498794+02:00 info: application: lasp_support, started_at: 'achlys1@192.168.1.6'
+2020-07-01T12:20:19.499968+02:00 info: application: rand_compat, started_at: 'achlys1@192.168.1.6'
+2020-07-01T12:20:19.502190+02:00 info: application: acceptor_pool, started_at: 'achlys1@192.168.1.6'
+2020-07-01T12:20:19.504667+02:00 info: application: quickrand, started_at: 'achlys1@192.168.1.6'
+2020-07-01T12:20:19.504838+02:00 info: application: uuid, started_at: 'achlys1@192.168.1.6'
+2020-07-01T12:20:19.509870+02:00 info: Using node name: 'achlys1@192.168.1.6'
+2020-07-01T12:20:19.545847+02:00 info: Partisan listening on {192,168,1,6}:27001 listen_addrs: [#{ip => {192,168,1,6},port => 27001}]
+2020-07-01T12:20:19.546943+02:00 info: supervisor: {local,partisan_sup}, started: [{pid,<0.1192.0>},{id,partisan_rpc_backend},{mfargs,{partisan_rpc_backend,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+2020-07-01T12:20:19.548015+02:00 info: supervisor: {local,partisan_sup}, started: [{pid,<0.1193.0>},{id,partisan_acknowledgement_backend},{mfargs,{partisan_acknowledgement_backend,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,wor...
+2020-07-01T12:20:19.552256+02:00 info: supervisor: {local,partisan_sup}, started: [{pid,<0.1194.0>},{id,partisan_hyparview_peer_service_manager},{mfargs,{partisan_hyparview_peer_service_manager,start_link,[]}},{restart_type,permanent},{shutdown,5000},{...
+2020-07-01T12:20:19.553356+02:00 info: supervisor: {local,partisan_sup}, started: [{pid,<0.1195.0>},{id,partisan_peer_service_events},{mfargs,{partisan_peer_service_events,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+2020-07-01T12:20:19.555430+02:00 info: supervisor: {local,partisan_sup}, started: [{pid,<0.1196.0>},{id,partisan_plumtree_backend},{mfargs,{partisan_plumtree_backend,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+2020-07-01T12:20:19.564209+02:00 debug: Node #{channels => [undefined],listen_addrs => [#{ip => {192,168,1,6},port => 27001}],name => 'achlys1@192.168.1.6',parallelism => 1} active view: [#{channels => [undefined],listen_addrs => [#{ip => {192,168,1,6}...
+2020-07-01T12:20:19.572365+02:00 info: supervisor: {local,partisan_sup}, started: [{pid,<0.1197.0>},{id,partisan_plumtree_broadcast},{mfargs,{partisan_plumtree_broadcast,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+2020-07-01T12:20:19.575713+02:00 info: supervisor: {local,partisan_pool_sup}, started: [{pid,<0.1199.0>},{id,partisan_pool},{mfargs,{partisan_pool,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+2020-07-01T12:20:19.578214+02:00 info: supervisor: {local,partisan_pool_sup}, started: [{pid,<0.1200.0>},{id,{partisan_socket,{192,168,1,6},27001}},{mfargs,{partisan_socket,start_link,[{192,168,1,6},27001]}},{restart_type,permanent},{shutdown,5000},{ch...
+2020-07-01T12:20:19.578348+02:00 info: supervisor: {local,partisan_sup}, started: [{pid,<0.1198.0>},{id,partisan_pool_sup},{mfargs,{partisan_pool_sup,start_link,[]}},{restart_type,permanent},{shutdown,20000},{child_type,supervisor}]
+2020-07-01T12:20:19.578466+02:00 info: application: partisan, started_at: 'achlys1@192.168.1.6'
+2020-07-01T12:20:19.585192+02:00 debug: Node #{channels => [undefined],listen_addrs => [#{ip => {192,168,1,6},port => 27001}],name => 'achlys1@192.168.1.6',parallelism => 1} active view: [#{channels => [undefined],listen_addrs => [#{ip => {192,168,1,6}...
+2020-07-01T12:20:19.587083+02:00 info: supervisor: {local,plumtree_sup}, started: [{pid,<0.1210.0>},{id,plumtree_broadcast},{mfargs,{plumtree_broadcast,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+2020-07-01T12:20:19.587235+02:00 info: application: plumtree, started_at: 'achlys1@192.168.1.6'
+2020-07-01T12:20:19.588226+02:00 info: application: gen_fsm_compat, started_at: 'achlys1@192.168.1.6'
+2020-07-01T12:20:19.634722+02:00 info: supervisor: {local,lasp_sup}, started: [{pid,<0.1258.0>},{id,lasp_unique},{mfargs,{lasp_unique,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+2020-07-01T12:20:19.637148+02:00 info: supervisor: {local,lasp_sup}, started: [{pid,<0.1259.0>},{id,lasp_plumtree_backend},{mfargs,{lasp_plumtree_backend,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+2020-07-01T12:20:19.642005+02:00 info: supervisor: {local,lasp_sup}, started: [{pid,<0.1260.0>},{id,lasp_plumtree_memory_report},{mfargs,{lasp_plumtree_memory_report,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+2020-07-01T12:20:19.643224+02:00 info: supervisor: {local,lasp_sup}, started: [{pid,<0.1261.0>},{id,lasp_memory_utilization_report},{mfargs,{lasp_memory_utilization_report,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+2020-07-01T12:20:19.653614+02:00 info: supervisor: {local,lasp_sup}, started: [{pid,<0.1262.0>},{id,lasp_distribution_backend},{mfargs,{lasp_distribution_backend,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+2020-07-01T12:20:19.654419+02:00 info: supervisor: {local,lasp_sup}, started: [{pid,<0.1267.0>},{id,lasp_process_sup},{mfargs,{lasp_process_sup,start_link,[]}},{restart_type,permanent},{shutdown,infinity},{child_type,supervisor}]
+2020-07-01T12:20:19.669953+02:00 info: supervisor: {local,lasp_sup}, started: [{pid,<0.1268.0>},{id,lasp_membership},{mfargs,{lasp_membership,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+2020-07-01T12:20:19.670122+02:00 info: application: lasp, started_at: 'achlys1@192.168.1.6'
+2020-07-01T12:20:19.670207+02:00 notice: Initializing task server module
+2020-07-01T12:20:19.670289+02:00 info: supervisor: {local,achlys_sup}, started: [{pid,<0.1095.0>},{id,achlys_task_server},{mfargs,{achlys_task_server,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+2020-07-01T12:20:19.671453+02:00 notice: Initializing task worker module
+2020-07-01T12:20:19.672415+02:00 info: supervisor: {local,achlys_sup}, started: [{pid,<0.1271.0>},{id,achlys_task_worker},{mfargs,{achlys_task_worker,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+2020-07-01T12:20:19.673050+02:00 info: supervisor: {local,achlys_sup}, started: [{pid,<0.1272.0>},{id,achlys_process_sup},{mfargs,{achlys_process_sup,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,supervisor}]
+2020-07-01T12:20:19.673651+02:00 info: supervisor: {local,achlys_sup}, started: [{pid,<0.1273.0>},{id,achlys_stream_reducer_sup},{mfargs,{achlys_stream_reducer_sup,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,supervisor}]
+2020-07-01T12:20:19.674236+02:00 info: supervisor: {local,achlys_sup}, started: [{pid,<0.1274.0>},{id,achlys_lazy_stream_reducer_sup},{mfargs,{achlys_lazy_stream_reducer_sup,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,supervisor}]
+2020-07-01T12:20:19.675004+02:00 info: supervisor: {local,achlys_sup}, started: [{pid,<0.1275.0>},{id,achlys_mr},{mfargs,{achlys_mr,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+2020-07-01T12:20:19.676227+02:00 info: supervisor: {local,achlys_spawn_sup}, started: [{pid,<0.1277.0>},{id,achlys_spawn},{mfargs,{achlys_spawn,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+2020-07-01T12:20:19.676985+02:00 info: supervisor: {local,achlys_spawn_sup}, started: [{pid,<0.1278.0>},{id,achlys_spawn_monitor},{mfargs,{achlys_spawn_monitor,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+2020-07-01T12:20:19.677089+02:00 info: supervisor: {local,achlys_sup}, started: [{pid,<0.1276.0>},{id,achlys_spawn_sup},{mfargs,{achlys_spawn_sup,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,supervisor}]
+2020-07-01T12:20:19.678140+02:00 debug: Node #{channels => [undefined],listen_addrs => [#{ip => {192,168,1,6},port => 27001}],name => 'achlys1@192.168.1.6',parallelism => 1} active view: [#{channels => [undefined],listen_addrs => [#{ip => {192,168,1,6}...
+2020-07-01T12:20:19.678284+02:00 info: supervisor: {local,achlys_sup}, started: [{pid,<0.1279.0>},{id,achlys_plumtree_broadcast},{mfargs,{achlys_plumtree_broadcast,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+2020-07-01T12:20:19.678917+02:00 info: supervisor: {local,achlys_sup}, started: [{pid,<0.1280.0>},{id,achlys_plumtree_backend},{mfargs,{achlys_plumtree_backend,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+2020-07-01T12:20:19.680408+02:00 info: supervisor: {local,achlys_sup}, started: [{pid,<0.1281.0>},{id,achlys_view},{mfargs,{achlys_view,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+2020-07-01T12:20:19.681712+02:00 info: supervisor: {local,achlys_pmod_worker_sup}, started: [{pid,<0.1283.0>},{id,achlys_pmod_nav_worker},{mfargs,{achlys_pmod_nav_worker,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+2020-07-01T12:20:19.681835+02:00 info: supervisor: {local,achlys_sup}, started: [{pid,<0.1282.0>},{id,achlys_pmod_worker_sup},{mfargs,{achlys_pmod_worker_sup,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,supervisor}]
+2020-07-01T12:20:19.681988+02:00 info: application: achlys, started_at: 'achlys1@192.168.1.6'
+2020-07-01T12:20:20.672439+02:00 notice: Task set has been declared with identifier : {<<"tasks">>,state_gset}
+2020-07-01T12:20:20.682654+02:00 notice: Pmod measuring #{pressure => #{aggregation_trigger => 3,poll_interval => 6000},temperature => #{aggregation_trigger => 3,poll_interval => 6000}} values
+2020-07-01T12:20:21.672835+02:00 notice: Task list : []
+2020-07-01T12:20:21.673123+02:00 notice: New tasks : []
+2020-07-01T12:20:21.673308+02:00 notice: New dict : {dict,0,16,16,8,80,48,{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},{{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}
+2020-07-01T12:20:23.675207+02:00 notice: Task list : []
+2020-07-01T12:20:23.675365+02:00 notice: New tasks : []
+2020-07-01T12:20:23.675440+02:00 notice: New dict : {dict,0,16,16,8,80,48,{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},{{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}
+2020-07-01T12:20:24.217005+02:00 debug: Node #{channels => [undefined],listen_addrs => [#{ip => {192,168,1,6},port => 27001}],name => 'achlys1@192.168.1.6',parallelism => 1} active view: [#{channels => [undefined],listen_addrs => [#{ip => {192,168,1,6}...
+2020-07-01T12:20:24.217151+02:00 critical: Formation result : {ok,['achlys1@192.168.1.6']}
+2020-07-01T12:20:25.676992+02:00 notice: Task list : []
+2020-07-01T12:20:25.677149+02:00 notice: New tasks : []
+2020-07-01T12:20:25.677226+02:00 notice: New dict : {dict,0,16,16,8,80,48,{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},{{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}
+2020-07-01T12:20:26.218047+02:00 debug: Node #{channels => [undefined],listen_addrs => [#{ip => {192,168,1,6},port => 27001}],name => 'achlys1@192.168.1.6',parallelism => 1} active view: [#{channels => [undefined],listen_addrs => [#{ip => {192,168,1,6}...
+2020-07-01T12:20:26.218672+02:00 critical: Formation result : {ok,['achlys1@192.168.1.6']}
+2020-07-01T12:20:27.677535+02:00 notice: Task list : []
+2020-07-01T12:20:27.677629+02:00 notice: New tasks : []
+2020-07-01T12:20:27.677672+02:00 notice: New dict : {dict,0,16,16,8,80,48,{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},{{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}
+2020-07-01T12:20:28.220049+02:00 debug: Node #{channels => [undefined],listen_addrs => [#{ip => {192,168,1,6},port => 27001}],name => 'achlys1@192.168.1.6',parallelism => 1} active view: [#{channels => [undefined],listen_addrs => [#{ip => {192,168,1,6}...
+2020-07-01T12:20:28.220601+02:00 critical: Formation result : {ok,['achlys1@192.168.1.6']}
+2020-07-01T12:20:28.646609+02:00 info: [MAPREDUCE]: id=<<200,28,8,223,136,49,159,183,95,16,150,15,93,244,89,200,5,23,164,67>>;type=M;args='achlys1@192.168.1.6'
+2020-07-01T12:20:28.647015+02:00 info: [MAPREDUCE]: id=<<200,28,8,223,136,49,159,183,95,16,150,15,93,244,89,200,5,23,164,67>>;type=R;args=1
+2020-07-01T12:20:29.654568+02:00 debug: Node #{channels => [undefined],listen_addrs => [#{ip => {192,168,1,6},port => 27001}],name => 'achlys1@192.168.1.6',parallelism => 1} active view: [#{channels => [undefined],listen_addrs => [#{ip => {192,168,1,6}...
+2020-07-01T12:20:29.678888+02:00 notice: Task list : []
+2020-07-01T12:20:29.679207+02:00 notice: New tasks : []
+2020-07-01T12:20:29.679378+02:00 notice: New dict : {dict,0,16,16,8,80,48,{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},{{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}
+2020-07-01T12:20:30.222073+02:00 debug: Node #{channels => [undefined],listen_addrs => [#{ip => {192,168,1,6},port => 27001}],name => 'achlys1@192.168.1.6',parallelism => 1} active view: [#{channels => [undefined],listen_addrs => [#{ip => {192,168,1,6}...
+2020-07-01T12:20:30.222639+02:00 critical: Formation result : {ok,['achlys1@192.168.1.6']}
+2020-07-01T12:20:31.649517+02:00 info: [MAPREDUCE]: id=<<200,28,8,223,136,49,159,183,95,16,150,15,93,244,89,200,5,23,164,67>>;type=R;args=2
+2020-07-01T12:20:31.680984+02:00 notice: Task list : []
+2020-07-01T12:20:31.681335+02:00 notice: New tasks : []
+2020-07-01T12:20:31.681527+02:00 notice: New dict : {dict,0,16,16,8,80,48,{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},{{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}
+2020-07-01T12:20:32.224052+02:00 debug: Node #{channels => [undefined],listen_addrs => [#{ip => {192,168,1,6},port => 27001}],name => 'achlys1@192.168.1.6',parallelism => 1} active view: [#{channels => [undefined],listen_addrs => [#{ip => {192,168,1,6}...
+2020-07-01T12:20:32.224628+02:00 critical: Formation result : {ok,['achlys1@192.168.1.6']}
+2020-07-01T12:20:33.683205+02:00 notice: Task list : []
+2020-07-01T12:20:33.683552+02:00 notice: New tasks : []
+2020-07-01T12:20:33.683741+02:00 notice: New dict : {dict,0,16,16,8,80,48,{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},{{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}
+2020-07-01T12:20:34.226061+02:00 debug: Node #{channels => [undefined],listen_addrs => [#{ip => {192,168,1,6},port => 27001}],name => 'achlys1@192.168.1.6',parallelism => 1} active view: [#{channels => [undefined],listen_addrs => [#{ip => {192,168,1,6}...
+2020-07-01T12:20:34.226459+02:00 critical: Formation result : {ok,['achlys1@192.168.1.6']}
+2020-07-01T12:20:34.651322+02:00 info: [MAPREDUCE]: id=<<200,28,8,223,136,49,159,183,95,16,150,15,93,244,89,200,5,23,164,67>>;type=R;args=3
+2020-07-01T12:20:35.685163+02:00 notice: Task list : []
+2020-07-01T12:20:35.685476+02:00 notice: New tasks : []
+2020-07-01T12:20:35.685647+02:00 notice: New dict : {dict,0,16,16,8,80,48,{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},{{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}
+2020-07-01T12:20:36.228070+02:00 debug: Node #{channels => [undefined],listen_addrs => [#{ip => {192,168,1,6},port => 27001}],name => 'achlys1@192.168.1.6',parallelism => 1} active view: [#{channels => [undefined],listen_addrs => [#{ip => {192,168,1,6}...
+2020-07-01T12:20:36.228318+02:00 critical: Formation result : {ok,['achlys1@192.168.1.6']}
+2020-07-01T12:20:37.653485+02:00 info: [MAPREDUCE]: id=<<200,28,8,223,136,49,159,183,95,16,150,15,93,244,89,200,5,23,164,67>>;type=F
+2020-07-01T12:20:37.686829+02:00 notice: Task list : []
+2020-07-01T12:20:37.686961+02:00 notice: New tasks : []
+2020-07-01T12:20:37.687064+02:00 notice: New dict : {dict,0,16,16,8,80,48,{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},{{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}
+2020-07-01T12:20:38.228876+02:00 debug: Node #{channels => [undefined],listen_addrs => [#{ip => {192,168,1,6},port => 27001}],name => 'achlys1@192.168.1.6',parallelism => 1} active view: [#{channels => [undefined],listen_addrs => [#{ip => {192,168,1,6}...
+2020-07-01T12:20:38.229068+02:00 critical: Formation result : {ok,['achlys1@192.168.1.6']}
+2020-07-01T12:20:39.657040+02:00 debug: Node #{channels => [undefined],listen_addrs => [#{ip => {192,168,1,6},port => 27001}],name => 'achlys1@192.168.1.6',parallelism => 1} active view: [#{channels => [undefined],listen_addrs => [#{ip => {192,168,1,6}...
+2020-07-01T12:20:39.688340+02:00 notice: Task list : []
+2020-07-01T12:20:39.688776+02:00 notice: New tasks : []
+2020-07-01T12:20:39.689069+02:00 notice: New dict : {dict,0,16,16,8,80,48,{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},{{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}
+2020-07-01T12:20:40.230035+02:00 debug: Node #{channels => [undefined],listen_addrs => [#{ip => {192,168,1,6},port => 27001}],name => 'achlys1@192.168.1.6',parallelism => 1} active view: [#{channels => [undefined],listen_addrs => [#{ip => {192,168,1,6}...
+2020-07-01T12:20:40.230196+02:00 critical: Formation result : {ok,['achlys1@192.168.1.6']}
