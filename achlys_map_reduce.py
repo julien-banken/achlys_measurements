@@ -1,26 +1,9 @@
 #!/usr/bin/env python3
 
-import re
 import pandas
 import matplotlib.pyplot as plt
 
-from helpers import get_logs_per_node
-
-def transform(logs):
-  pattern = r"^\[MAPREDUCE\]\s*\[([^\]]+)\]\s*\[([^\]]+)\]\s*(?:\[([^\]]+)\])?"
-  for log in logs:
-    matches = re.search(pattern, log["message"])
-    if matches:
-      log["id"] = matches[1]
-      log["type"] = matches[2]
-      log["args"] = matches[3]
-      yield log
-
-def get_dataframe_per_node(directory):
-  dfs = {}
-  for (key, logs) in get_logs_per_node(directory).items():
-    dfs[key] = pandas.DataFrame(transform(logs))
-  return dfs
+from helpers import get_logs_per_node, parse_logs
 
 def open_block(blocks, time):
   if blocks and len(blocks[-1]) == 1:
@@ -88,7 +71,7 @@ def plot(df, ax, myself, names):
     plot_blocks(ax, index, blocks["master"], offset, "tab:blue")
     plot_blocks(ax, index, blocks["observer"], offset, "tab:orange")
 
-  x_ticks = range(0, 5)
+  x_ticks = range(0, 10)
   y_ticks = [10, 20, 30, 40, 50]
 
   ax.title.set_text("View of node: {0}".format(myself))
@@ -115,9 +98,17 @@ def plot(df, ax, myself, names):
       )
     )
 
+def get_dataframe_per_node(directory):
+  dfs = {}
+  labels = ["MAPREDUCE"]
+  for (name, logs) in get_logs_per_node(directory):
+    logs = parse_logs(labels, logs)
+    dfs[name] = pandas.DataFrame(logs)
+  return dfs
+
 if __name__ == "__main__":
 
-  directory = "./logs/5_nodes_best"
+  directory = "./logs/map_reduce"
   dfs = get_dataframe_per_node(directory)
 
   fig = plt.figure(figsize=(9, 3), dpi=80)
